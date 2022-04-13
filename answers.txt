@@ -1,0 +1,25 @@
+1. Did you use a single message identifier for all message types in your system, or different one for each type of message? Why? 
+    I used a single message identifier for every message. This made it easy to identify where the messages were comming from and
+    have a consistant way to view the data in the system.
+
+2. Did you have to change how your seen messages worked? Why or why not? 
+    I did have to make my seen messages send my current threshold state alongisde the temperature store state. This allowed me to
+    quickly communicate to my peers what I already knew and didn't know.
+
+3. How did the state-oriented CRDT we used for Lab 8 differ from the operation-oriented CRDT we used in this lab?
+    Before we would just send our state and call it good. Now each pico directly changes the state of the other picos around it.
+
+4. Is it possible for a node to issue two positive threshold violation messages (i.e. value = 1) without an intervening negative 
+threshold violation messages (i.e. value = -1)? Justify your analysis. What are the consequences of such a scenario? 
+    That would not be possible with the current impliementation of my system. This is because I've programmed it to only allow one
+    positive up, and then zero gets added each time untill a negative bump down comes on a non threshold violation reading. If the
+    system was not programmed this way then the whole system could end up with different values and never reach a consensus.
+
+5. How does gossip messaging combined with CRDT compare with Paxos? Consider the threshold counter we implemented for this lab. 
+How would it be different if you tried to use Paxos to implement it? 
+    I think CRDT tryies to achieve consensus independently. Where Paxios would require each pico to strictly share an absolute
+    value to eachother.
+
+6. How does gossip messaging combined with CRDT compare with Byzantine consensus (like in a blockchain)? 
+    I think that blockchain allows others in the network to know what the current node's values are, but not modify them. 
+    CRDT (least as I understand it) allowes for a node to modify a different nodes state.
